@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anjali M A - 3D Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card {
+      width: 90%;
+      max-width: 400px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+      padding: 30px;
+      box-sizing: border-box;
+      transition: transform 0.1s ease;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      overflow-y: auto;
+      max-height: 95vh;
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 10px 0;
+      color: #2c3e50;
+    }
+
+    p {
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .tags, .projects, .links {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .tag, .tag-btn {
+      display: inline-block;
+      background: #ecf0f1;
+      border-radius: 5px;
+      padding: 5px 10px;
+      margin: 3px;
+      font-size: 12px;
+      cursor: pointer;
+      border: none;
+      font-weight: bold;
+    }
+
+    .tag-btn:hover {
+      background-color: #d0dce7;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #2980b9;
+      margin: 0 8px;
+      font-weight: bold;
+    }
+
+    .project-info {
+      display: none;
+      text-align: left;
+      background: #f9f9f9;
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .project-info h3 {
+      margin: 0 0 5px;
+      font-size: 16px;
+      color: #2c3e50;
+    }
+
+    .project-info p {
+      font-size: 13px;
+      color: #555;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="tilt-card">
+    <div class="profile-pic">
+      <img src="C:\Users\ACER\Desktop\3D PORT\1000093480.jpg" alt="Profile picture of Anjali M A" />
+    </div>
+    <h1>Anjali M A</h1>
+    <p>B.Tech ECE | Govt. Model Engineering College</p>
+    <p>📧 <a href="mailto:anjalima.mec@gmail.com">anjalima.mec@gmail.com</a></p>
+    <p>📞 +91 9388634087</p>
+
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">IoT</span>
+      <span class="tag">AI</span>
+      <span class="tag">Power BI</span>
+    </div>
+
+    <div class="links">
+      <a href="https://www.linkedin.com/in/anjali-m-a-b0141522b" target="_blank">LinkedIn</a>
+    </div>
+
+    <div class="projects">
+      <h3 style="margin-bottom: 10px;">Projects</h3>
+      <button class="tag-btn" onclick="showProject('gas')">Gas Leakage Detector</button>
+      <button class="tag-btn" onclick="showProject('fire')">Fire Robot</button>
+      <button class="tag-btn" onclick="showProject('agri')">Smart Agri System</button>
+    </div>
+
+    <div class="project-details">
+      <div id="gas" class="project-info">
+        <h3>Gas Leakage Detector</h3>
+        <p>Designed using AT89C51, MQ6, Keil, and Proteus to prevent gas-related accidents by detecting gas leaks and alerting early.</p>
+      </div>
+
+      <div id="fire" class="project-info">
+        <h3>Fire Extinguishing Robot</h3>
+        <p>Built with Arduino and GSM module. Detects fire with flame sensors and extinguishes using a water pump system.</p>
+      </div>
+
+      <div id="agri" class="project-info">
+        <h3>Self-sustaining Agricultural System</h3>
+        <p>Ongoing project using Raspberry Pi, ESP32, Flask. Applies machine learning to monitor and optimize rose plant health.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const card = document.getElementById('tilt-card');
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / 20).toFixed(2);
+      const rotateY = ((x - centerX) / 20).toFixed(2);
+      card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+
+    function showProject(id) {
+      const infos = document.querySelectorAll('.project-info');
+      infos.forEach(info => info.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+
+    // Show first project by default
+    showProject('gas');
+  </script>
+</body>
+</html>
+
